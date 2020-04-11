@@ -1,12 +1,11 @@
-import { takeLatest, call, put } from 'redux-saga/effects'; 
+import { takeLatest, call, put, all } from 'redux-saga/effects'; 
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 
 import ShopActionTypes from './shop.types';
 import { fetchCollectionsSucess, fetchCollectionsFailure } from './shop.actions';
 
 export function* fetchCollectionsAsync(){
-  yield console.log('I am fired');
-
+  
   try {
     const collectionRef = firestore.collection('collections');
     const snapshot = yield collectionRef.get();
@@ -23,5 +22,10 @@ export function* onFetchCollectionsStart(){
     fetchCollectionsAsync)
 }
 
+export function* shopSagas() {
+  yield all([
+    call(onFetchCollectionsStart)
+  ])
+}
 //call - is the efect inside of our generator function that invokes the method.
 //put - saga effect for creating action.
