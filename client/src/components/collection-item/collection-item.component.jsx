@@ -1,14 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-import { CartContext } from '../../providers/cart/cart.provider';
-
 import './collection-item.styles.scss';
 
-const CollectionItem = ({ item }) => {
+const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
-  const { addItem } = useContext(CartContext);
+
   return (
     <div className='collection-item'>
       <div
@@ -27,5 +25,6 @@ const CollectionItem = ({ item }) => {
     </div>
   );
 };
+
 
 export default CollectionItem;
